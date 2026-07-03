@@ -123,6 +123,3 @@ Because the AI provider is the one you choose and connect, please review that pr
 == Changelog ==
 = 1.0.0 =
 * First stable release of Media on Autopilot.
-* Focal point: manual picker on the edit-media screen plus AI focal detection on upload, driving server-side cropping and front-end object-position.
-* AI alt text and tagging: per-image generation, opt-in auto-on-upload, and a "Retag existing media" tool for the existing library, using the native WordPress AI Client (no third-party plugin needed).
-* CDN delivery: choose BunnyCDN pull-zone delivery or Cloudflare Images offload, with on-the-fly resizing, focal-aware cropping, and responsive srcset. Credentials can be saved without going live via a separate "Serve images through CDN" setting.
