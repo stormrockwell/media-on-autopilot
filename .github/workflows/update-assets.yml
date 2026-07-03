@@ -1,0 +1,28 @@
+name: Update WordPress.org readme and assets
+
+# Publishes readme.txt and the .wordpress-org/ assets (banner, icon, screenshots)
+# to WordPress.org WITHOUT cutting a new release. The action parses the Stable tag
+# from readme.txt and commits to both trunk and that tag folder, so the public
+# plugin page updates even though the version is unchanged. Release-time syncing
+# still happens in deploy.yml; this covers readme/asset-only edits between releases.
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'readme.txt'
+      - '.wordpress-org/**'
+  workflow_dispatch:
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    environment: main
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Update wp.org readme and assets
+        uses: 10up/action-wordpress-plugin-asset-update@2480306f6f693672726d08b5917ea114cb2825f7 # 2.2.0
+        env:
+          SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
+          SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
+          SLUG: media-on-autopilot

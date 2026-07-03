@@ -1,8 +1,13 @@
 # WordPress.org assets
 
-Final art committed here is published to the plugin's WordPress.org `assets/` directory by
-`.github/workflows/deploy.yml` (via `10up/action-wordpress-plugin-asset-update`). These files are
-NOT shipped in the plugin zip (`.distignore` excludes `.wordpress-org`).
+Final art committed here is published to the plugin's WordPress.org `assets/` directory by two
+workflows (both via `10up/action-wordpress-plugin-asset-update`):
+
+- `.github/workflows/update-assets.yml` — on every push to `main` that touches `readme.txt` or
+  `.wordpress-org/**`, syncs the readme and these assets to WordPress.org **without a release**.
+- `.github/workflows/deploy.yml` — re-syncs them at release time alongside the versioned deploy.
+
+These files are NOT shipped in the plugin zip (`.distignore` excludes `.wordpress-org`).
 
 Expected files (see `docs/assets-brief.md` for full briefs):
 

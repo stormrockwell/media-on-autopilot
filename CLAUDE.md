@@ -19,7 +19,11 @@ JS (from the plugin directory):
 - `npm run test:js` — Jest (config at `assets/test/jest.config.js`)
 - `npm run lint:js` — ESLint over `assets/src` and `assets/test`
 
-CI (`.github/workflows/ci.yml`) runs three jobs: `php` (lint + unit), `js` (lint + jest), and `integration` (reconstructs the Studio layout, downloads WP 7.0 core + SQLite integration, builds assets, then runs the integration suite). Integration tests require `npm run build` to have produced `build/` assets.
+CI and deployment use three workflows in `.github/workflows/`:
+
+- `ci.yml` (push to `main` and PRs) runs three jobs: `php` (lint + unit), `js` (lint + jest), and `integration` (reconstructs the Studio layout, downloads WP 7.0 core + SQLite integration, builds assets, then runs the integration suite). Integration tests require `npm run build` to have produced `build/` assets.
+- `update-assets.yml` (push to `main` touching `readme.txt` or `.wordpress-org/**`, plus manual dispatch) syncs `readme.txt` and the `.wordpress-org/` assets to WordPress.org via `10up/action-wordpress-plugin-asset-update`, **without cutting a release**. The action parses the `Stable tag` and commits to both trunk and that tag folder, so the public plugin page updates with the version unchanged. This is the path for readme or asset edits between releases (readme-only display fixes do not need a version bump).
+- `deploy.yml` (on GitHub release published) verifies version consistency, builds a production zip, deploys the new version to WordPress.org, and re-syncs the readme and assets. Runs in the `main` GitHub environment, which holds the `SVN_USERNAME` and `SVN_PASSWORD` secrets (so `update-assets.yml` sets `environment: main` for the same reason).
 
 ## Architecture
 
