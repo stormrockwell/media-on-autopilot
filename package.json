@@ -5,7 +5,8 @@
         "build": "wp-scripts build assets/src/index.js assets/src/ai-tagging.js assets/src/admin.js --output-path=build",
         "start": "wp-scripts start assets/src/index.js assets/src/ai-tagging.js assets/src/admin.js --output-path=build",
         "test:js": "wp-scripts test-unit-js --config assets/test/jest.config.js",
-        "lint:js": "wp-scripts lint-js assets/src assets/test"
+        "lint:js": "wp-scripts lint-js assets/src assets/test",
+        "lint:js:fix": "wp-scripts lint-js assets/src assets/test --fix"
     },
     "devDependencies": {
         "@testing-library/jest-dom": "^6.9.1",

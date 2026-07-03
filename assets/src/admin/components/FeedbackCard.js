@@ -8,10 +8,7 @@ export function FeedbackCard() {
 		<div className="moap-feedback">
 			<div className="moap-feedback__text">
 				<h3>
-					{ __(
-						'Help us make this better',
-						'media-on-autopilot'
-					) }
+					{ __( 'Help us make this better', 'media-on-autopilot' ) }
 				</h3>
 				<p>
 					{ __(
