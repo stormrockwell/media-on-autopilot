@@ -9,13 +9,13 @@ export function FeedbackCard() {
 			<div className="moap-feedback__text">
 				<h3>
 					{ __(
-						'Found a problem or have an idea?',
+						'Help us make this better',
 						'media-on-autopilot'
 					) }
 				</h3>
 				<p>
 					{ __(
-						'Report bugs and request features on GitHub. We read every one.',
+						'Spotted a bug or have a feature idea?',
 						'media-on-autopilot'
 					) }
 				</p>
