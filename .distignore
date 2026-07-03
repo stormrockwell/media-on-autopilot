@@ -1,0 +1,29 @@
+# Files and directories excluded from the WordPress.org distribution zip.
+# Patterns are rsync-style; the 10up deploy action and bin/build-zip.sh both read this file.
+/.git
+/.github
+/.gitignore
+/.gitattributes
+/.distignore
+/.claude
+/.superpowers
+/.wordpress-org
+/.phpunit.result.cache
+/.DS_Store
+/dist
+/media-on-autopilot.zip
+/node_modules
+/tests
+/docs
+/bin
+/assets/src
+/assets/test
+/composer.lock
+/package.json
+/package-lock.json
+/phpcs.xml.dist
+/phpunit.xml.dist
+/phpunit-integration.xml.dist
+/media-on-autopilot.code-workspace
+/CLAUDE.md
+/vendor/**/*.sh

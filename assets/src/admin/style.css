@@ -1,0 +1,1197 @@
+/* ==========================================================================
+   Media on Autopilot — Admin UI (V3 Card Dashboard)
+   Scoped under .moap-admin to avoid leaking into wp-admin.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   Custom properties
+   -------------------------------------------------------------------------- */
+.moap-admin {
+	--moap-blue: #2271b1;
+	--moap-blue-d: #135e96;
+	--moap-ink: #1d2327;
+	--moap-muted: #6b7280;
+	--moap-line: #e6e8eb;
+	--moap-bg: #f0f0f1;
+	--moap-ok: #0f9d58;
+	--moap-err: #d63638;
+	--moap-warn: #dba617;
+}
+
+/* --------------------------------------------------------------------------
+   Page wrapper
+   -------------------------------------------------------------------------- */
+.moap-admin {
+	max-width: 960px;
+	color: var( --moap-ink );
+	font-size: 13.5px;
+	line-height: 1.55;
+	margin-top: 20px;
+}
+
+/* --------------------------------------------------------------------------
+   Page masthead (logo + title + lead)
+   -------------------------------------------------------------------------- */
+.moap-admin .moap-top {
+	display: flex;
+	align-items: center;
+	gap: 13px;
+	margin: 0 0 40px;
+}
+
+.moap-admin .moap-top__logo {
+	width: 38px;
+	height: 38px;
+	border-radius: 10px;
+	background: linear-gradient( 135deg, #2271b1, #72aee6 );
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 19px;
+	flex: none;
+}
+
+.moap-admin .moap-top__title {
+	font-size: 22px;
+	margin: 0;
+	padding: 0;
+	font-weight: 600;
+	color: var( --moap-ink );
+}
+
+.moap-admin .moap-lead {
+	color: var( --moap-muted );
+	margin: 0 0 22px;
+	font-size: 14px;
+}
+
+/* --------------------------------------------------------------------------
+   Action banner
+   -------------------------------------------------------------------------- */
+.moap-admin .moap-banner {
+	display: flex;
+	align-items: center;
+	gap: 14px;
+	background: linear-gradient( 120deg, #eef4fb, #f6fafe );
+	border: 1px solid #dce8f5;
+	border-radius: 12px;
+	padding: 15px 18px;
+	margin-bottom: 22px;
+}
+
+.moap-admin .moap-banner .moap-badge {
+	white-space: nowrap;
+}
+
+.moap-admin .moap-banner__title {
+	font-size: 14.5px;
+	font-weight: 600;
+	color: var( --moap-ink );
+}
+
+.moap-admin .moap-banner__sub {
+	color: var( --moap-muted );
+	font-size: 13px;
+}
+
+/* --------------------------------------------------------------------------
+   Deck (3-column feature cards)
+   -------------------------------------------------------------------------- */
+.moap-admin .moap-deck {
+	display: grid;
+	grid-template-columns: repeat( 3, 1fr );
+	gap: 18px;
+	margin-bottom: 24px;
+}
+
+.moap-admin .moap-deck.is-hidden {
+	display: none;
+}
+
+/* --------------------------------------------------------------------------
+   Feature cards
+   -------------------------------------------------------------------------- */
+.moap-admin .moap-fcard {
+	background: #fff;
+	border: 1px solid var( --moap-line );
+	border-radius: 14px;
+	padding: 20px;
+	cursor: pointer;
+	transition: box-shadow 0.15s, transform 0.15s, border-color 0.15s;
+	display: flex;
+	flex-direction: column;
+	min-height: 188px;
+}
+
+.moap-admin .moap-fcard:hover {
+	box-shadow: 0 6px 20px rgba( 0, 0, 0, 0.08 );
+	transform: translateY( -2px );
+	border-color: #cdd6e0;
+}
+
+.moap-admin .moap-fcard h3 {
+	margin: 0 0 4px;
+	font-size: 16px;
+}
+
+.moap-admin .moap-fcard p {
+	margin: 0;
+	color: var( --moap-muted );
+	font-size: 13px;
+	flex: 1;
+}
+
+/* Card icon */
+.moap-admin .moap-fcard__icon {
+	width: 44px;
+	height: 44px;
+	border-radius: 11px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 21px;
+	margin-bottom: 14px;
+}
+
+.moap-admin .moap-fcard__icon--focal {
+	background: #eafaf1;
+	color: #0f9d58;
+}
+
+.moap-admin .moap-fcard__icon--ai {
+	background: #f1ecfb;
+	color: #7a5af5;
+}
+
+.moap-admin .moap-fcard__icon--cdn {
+	background: #e9f1fb;
+	color: #2271b1;
+}
+
+/* Card footer */
+.moap-admin .moap-fcard__foot {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-top: 16px;
+}
+
+.moap-admin .moap-fcard__go {
+	color: var( --moap-blue );
+	font-weight: 600;
+	font-size: 13px;
+}
+
+/* Offload line (CDN card) */
+.moap-admin .moap-fcard__offload {
+	font-size: 12.5px;
+	color: var( --moap-muted );
+	margin-top: 8px;
+}
+
+/* --------------------------------------------------------------------------
+   Status badges
+   -------------------------------------------------------------------------- */
+.moap-admin .moap-badge {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	font-size: 12px;
+	font-weight: 600;
+	padding: 4px 11px;
+	border-radius: 20px;
+}
+
+.moap-admin .moap-badge__dot {
+	width: 7px;
+	height: 7px;
+	border-radius: 50%;
+	flex: none;
+}
+
+.moap-admin .moap-badge--ok {
+	background: #e7f6ec;
+	color: var( --moap-ok );
+}
+
+.moap-admin .moap-badge--ok .moap-badge__dot {
+	background: var( --moap-ok );
+}
+
+.moap-admin .moap-badge--off {
+	background: #f1f2f4;
+	color: var( --moap-muted );
+}
+
+.moap-admin .moap-badge--off .moap-badge__dot {
+	background: var( --moap-muted );
+}
+
+.moap-admin .moap-badge--err {
+	background: #fcebec;
+	color: var( --moap-err );
+}
+
+.moap-admin .moap-badge--err .moap-badge__dot {
+	background: var( --moap-err );
+}
+
+.moap-admin .moap-badge--warn {
+	background: #fdf6e3;
+	color: #8a6d00;
+}
+
+.moap-admin .moap-badge--warn .moap-badge__dot {
+	background: var( --moap-warn );
+}
+
+/* --------------------------------------------------------------------------
+   Detail panels
+   -------------------------------------------------------------------------- */
+.moap-admin .moap-detail {
+	display: none;
+}
+
+.moap-admin .moap-detail.is-active {
+	display: block;
+}
+
+/* Breadcrumb */
+.moap-admin .moap-detail__crumb {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	margin-bottom: 18px;
+	font-size: 13px;
+}
+
+.moap-admin .moap-detail__crumb a {
+	color: var( --moap-blue );
+	text-decoration: none;
+	cursor: pointer;
+}
+
+.moap-admin .moap-detail__crumb a:hover {
+	text-decoration: underline;
+}
+
+.moap-admin .moap-detail__sep {
+	color: #b8bdc4;
+}
+
+/* --------------------------------------------------------------------------
+   Cards (white content boxes)
+   -------------------------------------------------------------------------- */
+.moap-admin .moap-card {
+	background: #fff;
+	border: 1px solid var( --moap-line );
+	border-radius: 12px;
+	margin-bottom: 18px;
+	overflow: hidden;
+}
+
+.moap-admin .moap-card__head {
+	padding: 14px 18px;
+	border-bottom: 1px solid var( --moap-line );
+	font-weight: 600;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.moap-admin .moap-card__body {
+	padding: 18px;
+}
+
+/* --------------------------------------------------------------------------
+   Sub-tabs
+   -------------------------------------------------------------------------- */
+.moap-admin .moap-subtabs {
+	display: flex;
+	gap: 6px;
+	margin-bottom: 18px;
+}
+
+.moap-admin .moap-subtab {
+	padding: 7px 15px;
+	border-radius: 8px;
+	cursor: pointer;
+	font-weight: 600;
+	color: var( --moap-muted );
+	background: #fff;
+	border: 1px solid var( --moap-line );
+	font-size: 13px;
+	line-height: 1.4;
+}
+
+.moap-admin .moap-subtab:hover {
+	background: #f7f8fa;
+}
+
+.moap-admin .moap-subtab.is-active {
+	background: var( --moap-blue );
+	color: #fff;
+	border-color: var( --moap-blue );
+}
+
+.moap-admin .moap-subpanel {
+	display: none;
+}
+
+.moap-admin .moap-subpanel.is-active {
+	display: block;
+}
+
+/* --------------------------------------------------------------------------
+   Setting rows
+   -------------------------------------------------------------------------- */
+.moap-admin .moap-row {
+	display: flex;
+	align-items: flex-start;
+	gap: 18px;
+	padding: 13px 0;
+	border-bottom: 1px solid #f3f4f6;
+}
+
+.moap-admin .moap-row:last-child {
+	border-bottom: none;
+}
+
+.moap-admin .moap-row__label {
+	width: 175px;
+	flex: none;
+	font-weight: 600;
+	padding-top: 5px;
+	font-size: 13.5px;
+}
+
+.moap-admin .moap-row__label small {
+	display: block;
+	font-weight: 400;
+	color: var( --moap-muted );
+}
+
+.moap-admin .moap-row__control {
+	flex: 1;
+}
+
+/* --------------------------------------------------------------------------
+   Form elements
+   -------------------------------------------------------------------------- */
+.moap-admin input[type="text"],
+.moap-admin input[type="password"],
+.moap-admin input[type="number"],
+.moap-admin select {
+	border: 1px solid #cbd0d6;
+	border-radius: 8px;
+	padding: 7px 10px;
+	font-size: 13.5px;
+	background: #fff;
+	color: var( --moap-ink );
+}
+
+.moap-admin input[type="text"].wide,
+.moap-admin input[type="password"].wide {
+	width: 330px;
+}
+
+.moap-admin input[type="number"].num {
+	width: 74px;
+}
+
+/* --------------------------------------------------------------------------
+   Description text
+   -------------------------------------------------------------------------- */
+.moap-admin .moap-desc {
+	color: var( --moap-muted );
+	font-size: 12.5px;
+	margin: 6px 0 0;
+}
+
+/* --------------------------------------------------------------------------
+   Toggle (checkbox-as-switch)
+   Adapts the mockup's .switch div to a real <input type="checkbox">.
+   -------------------------------------------------------------------------- */
+.moap-admin .moap-toggle {
+	display: inline-flex;
+	align-items: center;
+	gap: 12px;
+	cursor: pointer;
+	user-select: none;
+}
+
+/* Track — fully override wp-admin forms.css. The extra attribute selector
+   [type=checkbox] (no quotes) plus the .moap-admin scope keeps specificity high
+   enough to beat core's `.wp-core-ui input[type=checkbox]` rules. */
+.moap-admin .moap-toggle input[type="checkbox"],
+.moap-admin .moap-toggle input[type=checkbox] {
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	width: 46px;
+	height: 26px;
+	min-width: 46px;
+	border-radius: 13px;
+	background: #cbd0d6;
+	border: 0;
+	position: relative;
+	cursor: pointer;
+	flex: none;
+	transition: background 0.18s;
+	box-shadow: none;
+	padding: 0;
+	margin: 0;
+	color: transparent; /* hide any inherited checkmark glyph color */
+	vertical-align: middle;
+}
+
+/* Kill wp-admin's dashicon checkmark (forms.css adds it via :checked::before). */
+.moap-admin .moap-toggle input[type="checkbox"]::before,
+.moap-admin .moap-toggle input[type="checkbox"]:checked::before,
+.moap-admin .moap-toggle input[type=checkbox]:checked::before {
+	content: "";
+	display: none;
+	margin: 0;
+	width: auto;
+	height: auto;
+	background: none;
+	color: transparent;
+	box-shadow: none;
+	font-family: inherit;
+}
+
+/* Thumb — render via ::after so it never collides with core's ::before glyph. */
+.moap-admin .moap-toggle input[type="checkbox"]::after,
+.moap-admin .moap-toggle input[type=checkbox]::after {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 3px;
+	left: 3px;
+	width: 20px;
+	height: 20px;
+	border-radius: 50%;
+	background: #fff;
+	transition: left 0.18s;
+	box-shadow: 0 1px 3px rgba( 0, 0, 0, 0.3 );
+}
+
+.moap-admin .moap-toggle input[type="checkbox"]:checked,
+.moap-admin .moap-toggle input[type=checkbox]:checked {
+	background: var( --moap-ok );
+}
+
+.moap-admin .moap-toggle input[type="checkbox"]:checked::after,
+.moap-admin .moap-toggle input[type=checkbox]:checked::after {
+	left: 23px;
+}
+
+.moap-admin .moap-toggle input[type="checkbox"]:focus,
+.moap-admin .moap-toggle input[type=checkbox]:focus {
+	outline: 2px solid var( --moap-blue );
+	outline-offset: 2px;
+	box-shadow: none;
+}
+
+.moap-admin .moap-toggle__label {
+	font-size: 13.5px;
+	color: var( --moap-ink );
+}
+
+/* Auto-tag field: the .moap-row__control doubles as .moap-toggle */
+.moap-admin .moap-row__control.moap-toggle {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+}
+
+/* --------------------------------------------------------------------------
+   Provider sections — controlled via JS setting .hidden attribute.
+   Ensure [hidden] is never overridden by card styles.
+   -------------------------------------------------------------------------- */
+.moap-admin .moap-prov[hidden] {
+	display: none !important; /* stylelint-disable-line declaration-no-important */
+}
+
+.moap-admin [data-prov-hide][hidden] {
+	display: none !important; /* stylelint-disable-line declaration-no-important */
+}
+
+/* Provider-specific tools + the empty-state hint are toggled by nav.js. */
+.moap-admin [data-prov-tool][hidden],
+.moap-admin [data-prov-tool-hint][hidden] {
+	display: none !important; /* stylelint-disable-line declaration-no-important */
+}
+
+/* --------------------------------------------------------------------------
+   Guide / Setup guide button (small inline button in card head)
+   -------------------------------------------------------------------------- */
+.moap-admin .moap-guide {
+	border: none;
+	background: none;
+	color: var( --moap-blue );
+	font-size: 12px;
+	font-weight: 400;
+	cursor: pointer;
+	padding: 0;
+	text-decoration: underline;
+	text-underline-offset: 2px;
+}
+
+.moap-admin .moap-guide:hover {
+	color: var( --moap-blue-d );
+}
+
+/* --------------------------------------------------------------------------
+   Buttons — override wp-admin's buttons.css to match the mockup's .btn/.btn-pri.
+   The `.moap-admin .button` scope (two classes) beats core's `.wp-core-ui .button`
+   specificity, so every WP button (Save, Run test, Retag, Offload, Cancel, and
+   submit_button output) renders in the dashboard's design system.
+   -------------------------------------------------------------------------- */
+.moap-admin .button,
+.moap-admin .button-primary,
+.moap-admin .button-secondary,
+.moap-admin input[type="submit"].button,
+.moap-admin input[type="submit"].button-primary {
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+	border-radius: 8px;
+	border: 1px solid #cbd0d6;
+	background: #fff;
+	color: var( --moap-ink );
+	padding: 8px 16px;
+	font-size: 13.5px;
+	font-weight: 500;
+	line-height: 1.4;
+	height: auto;
+	min-height: 0;
+	cursor: pointer;
+	text-shadow: none;
+	box-shadow: none;
+	transition: background 0.15s, border-color 0.15s, color 0.15s;
+}
+
+.moap-admin .button:hover,
+.moap-admin .button-secondary:hover {
+	background: #f7f8fa;
+	border-color: #cbd0d6;
+	color: var( --moap-ink );
+}
+
+.moap-admin .button-primary,
+.moap-admin input[type="submit"].button-primary {
+	background: var( --moap-blue );
+	border-color: var( --moap-blue );
+	color: #fff;
+}
+
+.moap-admin .button-primary:hover,
+.moap-admin .button-primary:focus,
+.moap-admin input[type="submit"].button-primary:hover {
+	background: var( --moap-blue-d );
+	border-color: var( --moap-blue-d );
+	color: #fff;
+}
+
+.moap-admin .button:focus,
+.moap-admin .button-primary:focus,
+.moap-admin .button-secondary:focus {
+	outline: 2px solid var( --moap-blue );
+	outline-offset: 2px;
+	box-shadow: none;
+}
+
+.moap-admin .button:disabled,
+.moap-admin .button[disabled],
+.moap-admin .button-primary:disabled,
+.moap-admin .button-primary[disabled] {
+	opacity: 0.5;
+	cursor: not-allowed;
+	color: var( --moap-muted );
+	background: #fff;
+	border-color: var( --moap-line );
+}
+
+.moap-admin .button-primary:disabled,
+.moap-admin .button-primary[disabled] {
+	background: var( --moap-blue );
+	border-color: var( --moap-blue );
+	color: #fff;
+}
+
+/* Larger test button (mirrors mockup .btn-lg). */
+.moap-admin .moap-test {
+	padding: 10px 20px;
+	font-size: 14px;
+}
+
+/* The batch progress Cancel button is a plain .button; keep it compact. */
+.moap-admin .moap-batch-progress__cancel {
+	margin-left: 8px;
+}
+
+/* --------------------------------------------------------------------------
+   On-brand checkboxes — for real <input type=checkbox> that are NOT toggles
+   (Alt/Tags/Focal field selectors). Cohesive with the toggle switches.
+   -------------------------------------------------------------------------- */
+.moap-admin .moap-check input[type="checkbox"],
+.moap-admin .moap-check input[type=checkbox],
+.moap-admin input[type="checkbox"].moap-checkbox {
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	width: 18px;
+	height: 18px;
+	min-width: 18px;
+	border-radius: 5px;
+	border: 1px solid #cbd0d6;
+	background: #fff;
+	position: relative;
+	cursor: pointer;
+	margin: 0;
+	padding: 0;
+	box-shadow: none;
+	flex: none;
+	vertical-align: middle;
+	transition: background 0.15s, border-color 0.15s;
+}
+
+/* Kill wp-admin's dashicon checkmark glyph. */
+.moap-admin .moap-check input[type="checkbox"]::before,
+.moap-admin .moap-check input[type="checkbox"]:checked::before,
+.moap-admin .moap-check input[type=checkbox]:checked::before {
+	content: "";
+	display: none;
+	margin: 0;
+	width: auto;
+	height: auto;
+	background: none;
+	color: transparent;
+	box-shadow: none;
+	font-family: inherit;
+}
+
+.moap-admin .moap-check input[type="checkbox"]:checked,
+.moap-admin .moap-check input[type=checkbox]:checked {
+	background: var( --moap-blue );
+	border-color: var( --moap-blue );
+}
+
+/* Custom checkmark via ::after so it never collides with core's ::before glyph. */
+.moap-admin .moap-check input[type="checkbox"]:checked::after,
+.moap-admin .moap-check input[type=checkbox]:checked::after {
+	content: "";
+	display: block;
+	position: absolute;
+	left: 5px;
+	top: 1px;
+	width: 5px;
+	height: 10px;
+	border: solid #fff;
+	border-width: 0 2px 2px 0;
+	transform: rotate( 45deg );
+}
+
+.moap-admin .moap-check input[type="checkbox"]:focus,
+.moap-admin .moap-check input[type=checkbox]:focus {
+	outline: 2px solid var( --moap-blue );
+	outline-offset: 2px;
+	box-shadow: none;
+}
+
+/* Field-checkbox row layout. */
+.moap-admin .moap-checks {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 18px;
+	margin: 0 0 14px;
+}
+
+.moap-admin .moap-check {
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+	cursor: pointer;
+	user-select: none;
+	font-size: 13.5px;
+	color: var( --moap-ink );
+}
+
+/* --------------------------------------------------------------------------
+   Save button row
+   -------------------------------------------------------------------------- */
+.moap-admin .moap-save {
+	vertical-align: middle;
+}
+
+.moap-admin .moap-save-status {
+	display: inline-block;
+	margin-left: 12px;
+	font-size: 13px;
+	color: var( --moap-muted );
+	vertical-align: middle;
+}
+
+/* --------------------------------------------------------------------------
+   Test buttons and hint
+   -------------------------------------------------------------------------- */
+.moap-admin .moap-test-hint {
+	display: inline-block;
+	margin-left: 12px;
+	font-size: 12.5px;
+	color: var( --moap-muted );
+	font-style: italic;
+}
+
+/* --------------------------------------------------------------------------
+   Test preview area  [data-test-preview]
+   -------------------------------------------------------------------------- */
+.moap-admin [data-test-preview] {
+	margin-top: 16px;
+}
+
+.moap-admin [data-test-preview]:empty {
+	display: none;
+}
+
+/* Two-column preview: image pane + result column (mirrors mockup .preview). */
+.moap-admin .moap-preview {
+	display: flex;
+	gap: 18px;
+	border: 1px solid var( --moap-line );
+	border-radius: 10px;
+	padding: 16px;
+	background: #fafbfc;
+}
+
+.moap-admin .moap-preview__pane {
+	width: 200px;
+	height: 140px;
+	border-radius: 8px;
+	border: 1px dashed #cbd0d6;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: var( --moap-muted );
+	font-size: 12px;
+	flex: none;
+	overflow: hidden;
+}
+
+.moap-admin .moap-preview__pane img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	display: block;
+	border: 0;
+	border-radius: 0;
+	max-width: none;
+	margin: 0;
+}
+
+.moap-admin .moap-preview__result {
+	flex: 1;
+}
+
+.moap-admin .moap-preview__result p {
+	margin: 10px 0 6px;
+	color: var( --moap-ink );
+	font-size: 13px;
+}
+
+.moap-admin .moap-preview__result .moap-badge + p {
+	margin-top: 10px;
+}
+
+/* --------------------------------------------------------------------------
+   Chips (AI tag labels)
+   -------------------------------------------------------------------------- */
+.moap-admin .moap-chips {
+	margin-top: 4px;
+}
+
+.moap-admin .moap-chip {
+	display: inline-block;
+	background: #eef1f4;
+	border-radius: 14px;
+	padding: 4px 11px;
+	font-size: 12px;
+	margin: 0 6px 7px 0;
+	color: var( --moap-ink );
+}
+
+/* --------------------------------------------------------------------------
+   Batch progress (moap-batch, rendered by BatchProgressView)
+   -------------------------------------------------------------------------- */
+.moap-admin .moap-batch {
+	margin-top: 14px;
+}
+
+/* Hidden while idle; the JS adds .is-active only while a run is in flight. */
+.moap-admin .moap-batch-progress {
+	display: none;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 12px;
+	margin-bottom: 8px;
+}
+
+.moap-admin .moap-batch-progress.is-active {
+	display: flex;
+}
+
+.moap-admin .moap-batch-progress__bar {
+	flex: 0 1 380px;
+	width: 100%;
+	max-width: 380px;
+	height: 18px;
+	border-radius: 9px;
+	overflow: hidden;
+	-webkit-appearance: none;
+	appearance: none;
+	border: 0;
+	background: #eef1f4;
+}
+
+.moap-admin .moap-batch-progress__bar::-webkit-progress-bar {
+	background: #eef1f4;
+	border-radius: 9px;
+}
+
+.moap-admin .moap-batch-progress__bar::-webkit-progress-value {
+	background: var( --moap-blue );
+	border-radius: 9px;
+}
+
+.moap-admin .moap-batch-progress__bar::-moz-progress-bar {
+	background: var( --moap-blue );
+	border-radius: 9px;
+}
+
+/* Force the progress label onto its own row below the bar (and Cancel). */
+.moap-admin .moap-batch-progress__text {
+	order: 3;
+	flex-basis: 100%;
+	margin: 2px 0 0;
+	font-size: 12.5px;
+	color: var( --moap-muted );
+}
+
+.moap-admin .moap-batch-note {
+	margin: 6px 0 0;
+	font-size: 12.5px;
+	color: var( --moap-muted );
+}
+
+.moap-admin .moap-batch-summary {
+	margin: 6px 0 0;
+	font-size: 12.5px;
+	color: var( --moap-muted );
+}
+
+.moap-admin .moap-batch-summary:empty {
+	display: none;
+}
+
+.moap-admin .moap-batch-counts {
+	margin-top: 7px;
+	font-size: 12.5px;
+	color: var( --moap-ink );
+	font-weight: 600;
+}
+
+/* The JS renders plain text "✓ N done  ✗ N failed  ⤼ N skipped".
+   We can't color individual parts directly, but we can keep the element
+   styled correctly. The batch/style.css handles the progress bar widget. */
+.moap-admin .moap-batch-counts:empty {
+	display: none;
+}
+
+/* --------------------------------------------------------------------------
+   Tools (styled blocks — replace the plain WP form-table rows)
+   -------------------------------------------------------------------------- */
+.moap-admin .moap-tool .moap-tool__form {
+	margin: 0;
+}
+
+.moap-admin .moap-tool .moap-tool__form .submit {
+	margin: 0;
+	padding: 0;
+}
+
+.moap-admin .moap-tool .moap-tool__option {
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+	margin: 0 0 14px;
+	color: var( --moap-muted );
+	font-size: 13px;
+}
+
+.moap-admin .moap-tool .moap-tool__option input[type="checkbox"] {
+	margin: 0;
+}
+
+.moap-admin .moap-tool .moap-desc {
+	margin: 0 0 14px;
+}
+
+/* --------------------------------------------------------------------------
+   CDN test step log
+   -------------------------------------------------------------------------- */
+.moap-admin .moap-cdn-result {
+	margin-top: 16px;
+	padding: 14px 16px;
+	border: 1px solid var( --moap-line );
+	border-radius: 10px;
+	background: #fafbfc;
+}
+
+.moap-admin .moap-test-steps {
+	list-style: none;
+	margin: 10px 0 0;
+	padding: 0;
+	display: grid;
+	gap: 5px;
+	font-size: 13.5px;
+}
+
+.moap-admin .moap-test-step {
+	display: flex;
+	align-items: baseline;
+	gap: 7px;
+	color: var( --moap-muted );
+	line-height: 1.45;
+}
+
+.moap-admin .moap-test-step__glyph {
+	flex: none;
+	font-size: 12px;
+	width: 14px;
+	text-align: center;
+}
+
+.moap-admin .moap-test-step.is-ok .moap-test-step__glyph {
+	color: var( --moap-ok );
+}
+
+.moap-admin .moap-test-step.is-fail .moap-test-step__glyph {
+	color: var( --moap-err );
+}
+
+.moap-admin .moap-test-step.is-warn .moap-test-step__glyph {
+	color: var( --moap-warn );
+}
+
+/* --------------------------------------------------------------------------
+   Spinner (shown by test JS while in-flight)
+   -------------------------------------------------------------------------- */
+.moap-admin .moap-spinner,
+.moap-admin .spinner {
+	display: inline-block;
+	width: 20px;
+	height: 20px;
+	border: 2px solid #d6dae0;
+	border-top-color: var( --moap-blue );
+	border-radius: 50%;
+	animation: moap-spin 0.7s linear infinite;
+}
+
+@keyframes moap-spin {
+	to {
+		transform: rotate( 360deg );
+	}
+}
+
+/* --------------------------------------------------------------------------
+   Lightbox overlay — hidden by default via [hidden] attribute.
+   When JS removes [hidden] the overlay becomes visible.
+   -------------------------------------------------------------------------- */
+#moap-lightbox {
+	position: fixed;
+	inset: 0;
+	background: rgba( 15, 20, 30, 0.6 );
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	z-index: 100050; /* above WP admin notices (100040) */
+}
+
+#moap-lightbox[hidden] {
+	display: none;
+}
+
+/* Inner dialog box */
+.moap-admin #moap-lightbox .moap-lightbox__inner,
+#moap-lightbox .moap-lightbox__inner {
+	background: #fff;
+	border-radius: 14px;
+	width: 580px;
+	max-width: 92vw;
+	max-height: 90vh;
+	display: flex;
+	flex-direction: column;
+	overflow: hidden;
+	box-shadow: 0 30px 80px rgba( 0, 0, 0, 0.35 );
+}
+
+/* Header */
+.moap-admin #moap-lightbox .moap-lightbox__header,
+#moap-lightbox .moap-lightbox__header {
+	flex: 0 0 auto;
+	padding: 18px 22px;
+	border-bottom: 1px solid var( --moap-line, #e6e8eb );
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.moap-admin #moap-lightbox .moap-lightbox__title,
+#moap-lightbox .moap-lightbox__title {
+	margin: 0;
+	font-size: 17px;
+	font-weight: 600;
+}
+
+.moap-admin #moap-lightbox .moap-lightbox__close,
+#moap-lightbox .moap-lightbox__close {
+	border: none;
+	background: none;
+	font-size: 22px;
+	color: var( --moap-muted, #6b7280 );
+	cursor: pointer;
+	line-height: 1;
+	padding: 0;
+}
+
+.moap-admin #moap-lightbox .moap-lightbox__close:hover,
+#moap-lightbox .moap-lightbox__close:hover {
+	color: var( --moap-ink, #1d2327 );
+}
+
+/* Step content */
+.moap-admin #moap-lightbox .moap-lightbox__step,
+#moap-lightbox .moap-lightbox__step {
+	flex: 1 1 auto;
+	overflow-y: auto;
+	padding: 26px 24px;
+	min-height: 0;
+}
+
+.moap-admin #moap-lightbox .moap-lightbox__step h4,
+#moap-lightbox .moap-lightbox__step h4 {
+	margin: 0 0 8px;
+	font-size: 14px;
+}
+
+/* Step screenshot frame — holds a real PNG; the border unifies the shots. */
+.moap-admin #moap-lightbox .moap-lightbox__stepimg,
+#moap-lightbox .moap-lightbox__stepimg {
+	border: 1px solid var( --moap-line, #e6e8eb );
+	border-radius: 8px;
+	overflow: hidden;
+	background: #fff;
+	margin-bottom: 16px;
+}
+
+.moap-admin #moap-lightbox .moap-lightbox__stepimg img,
+#moap-lightbox .moap-lightbox__stepimg img {
+	display: block;
+	width: 100%;
+	height: auto;
+}
+
+.moap-admin #moap-lightbox .moap-lightbox__stepdesc,
+#moap-lightbox .moap-lightbox__stepdesc {
+	color: var( --moap-muted, #6b7280 );
+	margin: 0;
+}
+
+.moap-admin #moap-lightbox .moap-lightbox__stepcode,
+#moap-lightbox .moap-lightbox__stepcode {
+	margin: 10px 0 0;
+}
+
+.moap-admin #moap-lightbox .moap-lightbox__stepcode code,
+#moap-lightbox .moap-lightbox__stepcode code {
+	display: inline-block;
+	max-width: 100%;
+	overflow-wrap: anywhere;
+	padding: 6px 10px;
+	background: var( --moap-soft, #f3f5f8 );
+	border: 1px solid var( --moap-line, #e6e8eb );
+	border-radius: 6px;
+	font-size: 13px;
+	color: var( --moap-ink, #1d2327 );
+}
+
+.moap-admin #moap-lightbox .moap-lightbox__steplink,
+#moap-lightbox .moap-lightbox__steplink {
+	margin: 12px 0 0;
+	font-size: 13px;
+}
+
+/* Footer */
+.moap-admin #moap-lightbox .moap-lightbox__footer,
+#moap-lightbox .moap-lightbox__footer {
+	flex: 0 0 auto;
+	padding: 16px 22px;
+	border-top: 1px solid var( --moap-line, #e6e8eb );
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+/* Dots navigation */
+.moap-admin #moap-lightbox .moap-lightbox__dots,
+#moap-lightbox .moap-lightbox__dots {
+	display: flex;
+	gap: 7px;
+}
+
+.moap-admin #moap-lightbox .moap-lightbox__dot,
+#moap-lightbox .moap-lightbox__dot {
+	width: 8px;
+	height: 8px;
+	border-radius: 50%;
+	background: #d6dae0;
+	display: block; /* <i> defaults to inline */
+	font-style: normal;
+}
+
+.moap-admin #moap-lightbox .moap-lightbox__dot--on,
+#moap-lightbox .moap-lightbox__dot--on {
+	background: var( --moap-blue, #2271b1 );
+}
+
+/* Feedback card */
+.moap-feedback {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 16px;
+	flex-wrap: wrap;
+	box-sizing: border-box;
+	width: 100%;
+	margin-top: 16px;
+	padding: 20px 24px;
+	background: #fff;
+	border: 1px solid #e6e8eb;
+	border-radius: 8px;
+}
+
+.moap-feedback__text h3 {
+	margin: 0 0 4px;
+}
+
+.moap-feedback__text p {
+	margin: 0;
+	color: #6b7280;
+}
+
+.moap-feedback__actions {
+	display: flex;
+	gap: 8px;
+	flex-shrink: 0;
+}

@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<ruleset name="Media on Autopilot">
+	<description>WordPress coding standards for Media on Autopilot.</description>
+
+	<file>media-on-autopilot.php</file>
+	<file>src</file>
+
+	<arg name="extensions" value="php"/>
+	<arg name="colors"/>
+	<arg value="sp"/>
+
+	<rule ref="WordPress"/>
+	<rule ref="WordPress-Extra"/>
+
+	<!-- PSR-4 autoloading: disable WP file-naming conventions. -->
+	<rule ref="WordPress.Files.FileName.NotHyphenatedLowercase">
+		<severity>0</severity>
+	</rule>
+	<rule ref="WordPress.Files.FileName.InvalidClassFileName">
+		<severity>0</severity>
+	</rule>
+
+	<config name="minimum_supported_wp_version" value="7.0"/>
+	<config name="testVersion" value="8.3-"/>
+	<rule ref="PHPCompatibilityWP"/>
+
+	<rule ref="WordPress.WP.I18n">
+		<properties>
+			<property name="text_domain" type="array">
+				<element value="media-on-autopilot"/>
+			</property>
+		</properties>
+	</rule>
+
+	<rule ref="WordPress.NamingConventions.PrefixAllGlobals">
+		<properties>
+			<property name="prefixes" type="array">
+				<element value="moap_"/>
+				<element value="MediaOnAutopilot"/>
+			</property>
+		</properties>
+	</rule>
+</ruleset>

@@ -1,0 +1,95 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+
+jobs:
+  php:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          tools: composer
+      - name: Cache Composer packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/composer
+          key: composer-${{ hashFiles('composer.lock') }}
+          restore-keys: composer-
+      - run: composer install --no-interaction --prefer-dist
+      - name: Check version consistency
+        run: php bin/check-version.php
+      - run: composer lint
+      - run: composer test:unit
+
+  js:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: 'npm'
+      - run: npm ci
+      - run: npm run lint:js
+      - run: npm run test:js
+
+  integration:
+    runs-on: ubuntu-latest
+    steps:
+      # Reconstruct the Studio site layout the suite expects: the plugin sits at
+      # wp-content/plugins/media-on-autopilot and wp-tests-config.php resolves
+      # ABSPATH to the workspace root, where WordPress core is unpacked.
+      - name: Checkout plugin
+        uses: actions/checkout@v4
+        with:
+          path: wp-content/plugins/media-on-autopilot
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          tools: composer
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: 'npm'
+          cache-dependency-path: wp-content/plugins/media-on-autopilot/package-lock.json
+      - name: Cache Composer packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/composer
+          key: composer-${{ hashFiles('wp-content/plugins/media-on-autopilot/composer.lock') }}
+          restore-keys: composer-
+      - name: Cache WordPress + SQLite archives
+        uses: actions/cache@v4
+        with:
+          path: ~/wp-archives
+          key: wp-7.0-sqlite-2.2.23
+      - name: Download WordPress core
+        run: |
+          mkdir -p ~/wp-archives
+          [ -f ~/wp-archives/wordpress.tar.gz ] || \
+            curl -sL https://wordpress.org/wordpress-7.0.tar.gz -o ~/wp-archives/wordpress.tar.gz
+          tar --strip-components=1 -xzf ~/wp-archives/wordpress.tar.gz
+      - name: Install SQLite database integration
+        run: |
+          # Use the distributed WordPress.org build (flat layout with db.copy at the
+          # plugin root); the GitHub repo is a monorepo and has no usable db.copy.
+          [ -f ~/wp-archives/sqlite.zip ] || \
+            curl -sL https://downloads.wordpress.org/plugin/sqlite-database-integration.2.2.23.zip -o ~/wp-archives/sqlite.zip
+          unzip -q ~/wp-archives/sqlite.zip -d wp-content/plugins
+          # db.copy's unreplaced placeholder falls back to realpath of
+          # __DIR__/plugins/sqlite-database-integration, so a plain copy is enough.
+          cp wp-content/plugins/sqlite-database-integration/db.copy wp-content/db.php
+      - name: Install Composer dependencies
+        working-directory: wp-content/plugins/media-on-autopilot
+        run: composer install --no-interaction --prefer-dist
+      - name: Build assets
+        working-directory: wp-content/plugins/media-on-autopilot
+        run: npm ci && npm run build
+      - name: Run integration tests
+        working-directory: wp-content/plugins/media-on-autopilot
+        run: composer test:integration

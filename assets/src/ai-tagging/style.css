@@ -1,0 +1,40 @@
+.moap-ai-tagging {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 8px;
+}
+
+.moap-ai-tagging__status {
+	font-style: italic;
+}
+
+.moap-ai-tagging__tags {
+	flex-basis: 100%;
+}
+
+.moap-ai-tagging__tags-label {
+	font-weight: 600;
+}
+
+.moap-ai-tagging__tag-list:empty::after {
+	content: "—";
+	color: #999;
+}
+
+.moap-ai-tagging__chip {
+	display: inline-block;
+	background: #f0f0f1;
+	border: 1px solid #e2e2e4;
+	border-radius: 12px;
+	padding: 2px 10px;
+	margin: 0 5px 6px 0;
+	font-size: 12px;
+	color: #1d2327;
+}
+
+/* WP wraps each attachment field row in .compat-field-<id> whose th.label
+   defaults to vertical-align: middle; top-align it against the tall content. */
+.compat-field-moap_ai_tagging .label {
+	vertical-align: top;
+}

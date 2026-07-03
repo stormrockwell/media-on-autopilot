@@ -1,0 +1,10 @@
+/vendor/
+/node_modules/
+/build/
+/dist/
+/media-on-autopilot.zip
+.phpunit.result.cache
+*.code-workspace
+.DS_Store
+/docs/
+.claude

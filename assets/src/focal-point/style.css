@@ -1,0 +1,52 @@
+.moap-focal-point {
+	display: inline-block;
+	max-width: 100%;
+	margin-bottom: 12px;
+}
+
+.moap-focal-point__stage {
+	position: relative;
+	display: inline-block;
+	max-width: 100%;
+	cursor: crosshair;
+	line-height: 0;
+}
+
+.moap-focal-point__image {
+	max-width: 100%;
+	height: auto;
+}
+
+.moap-focal-point__marker {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 16px;
+	height: 16px;
+	margin: -8px 0 0 -8px;
+	border: 2px solid #fff;
+	border-radius: 50%;
+	box-shadow: 0 0 0 2px rgba( 0, 0, 0, 0.6 );
+	pointer-events: none;
+}
+
+.moap-focal-point__controls {
+	display: flex;
+	align-items: center;
+	margin-top: 8px;
+}
+
+.moap-focal-point__status {
+	margin-left: 8px;
+	color: #757575;
+}
+
+.moap-focal-point__save[hidden] {
+	display: none;
+}
+
+/* WP wraps each attachment field row in .compat-field-<id> whose th.label
+   defaults to vertical-align: middle; top-align it against the tall image. */
+.compat-field-moap_focal_point .label {
+	vertical-align: top;
+}
