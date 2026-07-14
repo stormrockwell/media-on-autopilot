@@ -2,7 +2,7 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-Media on Autopilot is a WordPress plugin (PHP 8.3+, WP 7.0+) that improves the media library: focal-point picker with AI detection on upload, AI alt text + tagging, and CDN delivery (BunnyCDN pull-zone or Cloudflare Images) with on-the-fly image optimization.
+Media on Autopilot is a WordPress plugin (PHP 8.2+, WP 7.0+) that improves the media library: focal-point picker with AI detection on upload, AI alt text + tagging, and CDN delivery (BunnyCDN pull-zone or Cloudflare Images) with on-the-fly image optimization.
 
 This plugin lives inside a WordPress Studio site. The site root (`../../..`) holds `STUDIO.md` / `AGENTS.md` — **all `wp` CLI commands must be prefixed with `studio`** (e.g. `studio wp eval '...'`). `wp shell` is unsupported; use `studio wp eval` instead. The database is SQLite, not MySQL.
 

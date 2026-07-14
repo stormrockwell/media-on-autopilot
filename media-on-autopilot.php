@@ -2,9 +2,9 @@
 /**
  * Plugin Name:       Media on Autopilot
  * Description:       Improves the WordPress media library without being invasive: focal point, AI alt text, AI tagging, CDN.
- * Version:           1.0.0
+ * Version:           1.1.0
  * Requires at least: 7.0
- * Requires PHP:      8.3
+ * Requires PHP:      8.2
  * Author:            Storm Rockwell
  * License:           GPL-2.0-or-later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
@@ -19,7 +19,7 @@ namespace MediaOnAutopilot;
 
 defined( 'ABSPATH' ) || exit;
 
-const VERSION = '1.0.0';
+const VERSION = '1.1.0';
 
 define( 'MOAP_PLUGIN_FILE', __FILE__ );
 define( 'MOAP_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );

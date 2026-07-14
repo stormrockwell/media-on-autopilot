@@ -14,7 +14,7 @@ Media on Autopilot takes the friction out of working with images in WordPress, f
 ## Requirements
 
 - WordPress 7.0+
-- PHP 8.3+
+- PHP 8.2+
 - For AI features: an AI provider configured in WordPress → Settings → Connectors
 - For CDN delivery: a BunnyCDN pull zone or a Cloudflare Images account
 
