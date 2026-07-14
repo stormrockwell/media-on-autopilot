@@ -8,18 +8,25 @@ on:
 jobs:
   php:
     runs-on: ubuntu-latest
+    # 8.2 is the "Requires PHP" floor and catches syntax newer than it; the
+    # current stable catches deprecations on what hosts actually run.
+    strategy:
+      fail-fast: false
+      matrix:
+        php: [ '8.2', '8.5' ]
+    name: php (${{ matrix.php }})
     steps:
       - uses: actions/checkout@v4
       - uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.3'
+          php-version: ${{ matrix.php }}
           tools: composer
       - name: Cache Composer packages
         uses: actions/cache@v4
         with:
           path: ~/.cache/composer
-          key: composer-${{ hashFiles('composer.lock') }}
-          restore-keys: composer-
+          key: composer-${{ matrix.php }}-${{ hashFiles('composer.lock') }}
+          restore-keys: composer-${{ matrix.php }}-
       - run: composer install --no-interaction --prefer-dist
       - name: Check version consistency
         run: php bin/check-version.php
@@ -50,7 +57,7 @@ jobs:
           path: wp-content/plugins/media-on-autopilot
       - uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.3'
+          php-version: '8.2'
           tools: composer
       - uses: actions/setup-node@v4
         with:

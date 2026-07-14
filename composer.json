@@ -3,7 +3,7 @@
     "description": "Improves the WordPress media library without being invasive.",
     "type": "wordpress-plugin",
     "license": "GPL-2.0-or-later",
-    "require": { "php": ">=8.3",
+    "require": { "php": ">=8.2",
         "deliciousbrains/wp-background-processing": "^1.4" },
     "require-dev": {
         "phpunit/phpunit": "^9.6",

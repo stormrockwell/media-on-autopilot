@@ -1,12 +1,12 @@
 === Media on Autopilot ===
 Contributors: stormrockwell
 Tags: focal point, alt text, image optimization, cdn, media library
-Tested up to: 7.0
+Tested up to: 7.0.1
 Requires at least: 7.0
-Requires PHP: 8.3
+Requires PHP: 8.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
-Stable tag: 1.0.0
+Stable tag: 1.1.0
 
 AI alt text and tagging, focal-point cropping that sticks, and image CDN delivery through your own accounts.
 
@@ -160,5 +160,8 @@ Because the AI provider is the one you choose and connect, please review that pr
 5. The "Retag existing media" tool mid-run, backfilling the library in the background.
 
 == Changelog ==
+= 1.1.0 =
+* Lowered the minimum PHP requirement from 8.3 to 8.2, so the plugin now installs on hosts still running PHP 8.2. No functional changes.
+
 = 1.0.0 =
 * First stable release of Media on Autopilot.
